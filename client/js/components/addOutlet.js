@@ -41,18 +41,24 @@ var addOutlet = React.createClass({
   render: function(){
     // var value = this.state.value;
     return (
-      <div>
-        <form className="form" onSubmit={this.handleSubmit}>
-          Street <input type="text" ref="street" placeholder='Enter your street address...' />
-          City <input type="text" ref="city" placeholder='Enter city...' /> 
-          State <input type="text" ref="state" placeholder='Enter state...' />
-          Zip-code <input type="text" ref="zip" placeholder='Enter zip-code...' />
-          Name <input type="text" ref="name" placeholder='What do you want to call this outlet?' />
-          Description <textarea name="description" ref="description" placeholder="This is a description." />
-          Voltage <input type="text" ref="voltage" placeholder='Standard or High?' />
-          Your hourly rate: $3/hr   Suggested price/kWh: $10/kWh
-          Your price/kWh charge: $<input type="text" ref="charge" placeholder='10' />/kWh
-          <input type="submit" value="Post" />
+      <div className="addoutlet ui container center">
+        <form className="ui form" onSubmit={this.handleSubmit}>
+          Street <input type="text" ref="street" placeholder='Enter your street address...' /><br />
+          City <input type="text" ref="city" placeholder='Enter city...' /> <br />
+          State <input type="text" ref="state" placeholder='Enter state...' /><br />
+          Zip-code <input type="text" ref="zip" placeholder='Enter zip-code...' /><br />
+          Name <input type="text" ref="name" placeholder='What do you want to call this outlet?' /><br />
+          Description <textarea name="description" ref="description" placeholder="This is a description." /><br />
+          <div className="field">
+            <label>Voltage</label>
+            <select class="ui dropdown">
+              <option value="1">Standard</option>
+              <option value="0">High</option>
+            </select><br />
+          </div>
+          Your hourly rate: $3/hr   Suggested price/kWh: $10/kWh<br />
+          Your price/kWh charge: $<input type="text" ref="charge" placeholder='10' />/kWh<br />
+          <button className="ui button" type="submit" value="Post">Submit</button><br />
         </form>
       </div>
     )

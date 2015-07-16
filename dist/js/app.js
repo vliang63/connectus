@@ -63,7 +63,6 @@ var React = require('react');
 var outletStore = require('../stores/outletStore');
 
 /* TODO
-Send values to database as new outlet
 Style page
 Change state and voltage to dropdown
 
@@ -88,7 +87,7 @@ var addOutlet = React.createClass({displayName: "addOutlet",
     outletStore.submitOutlet(newOutlet).then(function(res){
       console.log('ADDOUTLET submit response: ', res)
     });
-    // TODO: send request to the server
+    
     React.findDOMNode(this.refs.street).value = '';
     React.findDOMNode(this.refs.city).value = '';
     React.findDOMNode(this.refs.state).value = '';
@@ -103,18 +102,24 @@ var addOutlet = React.createClass({displayName: "addOutlet",
   render: function(){
     // var value = this.state.value;
     return (
-      React.createElement("div", null, 
-        React.createElement("form", {className: "form", onSubmit: this.handleSubmit}, 
-          "Street ", React.createElement("input", {type: "text", ref: "street", placeholder: "Enter your street address..."}), 
-          "City ", React.createElement("input", {type: "text", ref: "city", placeholder: "Enter city..."}), 
-          "State ", React.createElement("input", {type: "text", ref: "state", placeholder: "Enter state..."}), 
-          "Zip-code ", React.createElement("input", {type: "text", ref: "zip", placeholder: "Enter zip-code..."}), 
-          "Name ", React.createElement("input", {type: "text", ref: "name", placeholder: "What do you want to call this outlet?"}), 
-          "Description ", React.createElement("textarea", {name: "description", ref: "description", placeholder: "This is a description."}), 
-          "Voltage ", React.createElement("input", {type: "text", ref: "voltage", placeholder: "Standard or High?"}), 
-          "Your hourly rate: $3/hr   Suggested price/kWh: $10/kWh" + ' ' +
-          "Your price/kWh charge: $", React.createElement("input", {type: "text", ref: "charge", placeholder: "10"}), "/kWh", 
-          React.createElement("input", {type: "submit", value: "Post"})
+      React.createElement("div", {className: "addoutlet ui container center"}, 
+        React.createElement("form", {className: "ui form", onSubmit: this.handleSubmit}, 
+          "Street ", React.createElement("input", {type: "text", ref: "street", placeholder: "Enter your street address..."}), React.createElement("br", null), 
+          "City ", React.createElement("input", {type: "text", ref: "city", placeholder: "Enter city..."}), " ", React.createElement("br", null), 
+          "State ", React.createElement("input", {type: "text", ref: "state", placeholder: "Enter state..."}), React.createElement("br", null), 
+          "Zip-code ", React.createElement("input", {type: "text", ref: "zip", placeholder: "Enter zip-code..."}), React.createElement("br", null), 
+          "Name ", React.createElement("input", {type: "text", ref: "name", placeholder: "What do you want to call this outlet?"}), React.createElement("br", null), 
+          "Description ", React.createElement("textarea", {name: "description", ref: "description", placeholder: "This is a description."}), React.createElement("br", null), 
+          React.createElement("div", {className: "field"}, 
+            React.createElement("label", null, "Voltage"), 
+            React.createElement("select", {class: "ui dropdown"}, 
+              React.createElement("option", {value: "1"}, "Standard"), 
+              React.createElement("option", {value: "0"}, "High")
+            ), React.createElement("br", null)
+          ), 
+          "Your hourly rate: $3/hr   Suggested price/kWh: $10/kWh", React.createElement("br", null), 
+          "Your price/kWh charge: $", React.createElement("input", {type: "text", ref: "charge", placeholder: "10"}), "/kWh", React.createElement("br", null), 
+          React.createElement("button", {className: "ui button", type: "submit", value: "Post"}, "Submit"), React.createElement("br", null)
         )
       )
     )
@@ -749,10 +754,7 @@ var outletStore = assign({}, EventEmitter.prototype, {
   },
 
   submitOutlet: function(newOutlet){
-    console.log('IN OUTLETSTORE, SUMBITOUTLET: ', newOutlet)
-    return OutletServices.addOutlet(newOutlet).then(function(res){
-      console.log('OUTLETSTORE res in submitOutlet', res);
-    });
+    return OutletServices.addOutlet(newOutlet);
   },
 
   emitChange: function() {
